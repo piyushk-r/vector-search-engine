@@ -1,9 +1,9 @@
-public class Vector{
+public class Vector {
     int id;
-    double[] vector;
+    double[] values;
 
-    public Vector(int id, double[] vector) {
+    public Vector(int id, double[] values) {
         this.id = id;
-        this.vector = vector;
+        this.values = values;
     }
 }
