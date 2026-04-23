@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class BruteForceSearch {
 
     private VectorStore vectors;
@@ -17,5 +19,12 @@ public class BruteForceSearch {
             }
         }
         return best;
+    }
+
+    public List<Vector> findTopK(double[] target, int k) {
+        List<Vector> all = vectors.getAll();
+        return all.stream().sorted((a, b) -> Double.compare(
+                DistanceUtil.euclidean(a.values, target),
+                DistanceUtil.euclidean(b.values, target))).limit(k).toList();
     }
 }
