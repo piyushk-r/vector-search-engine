@@ -11,7 +11,7 @@ public class Main {
         store.addVector(new Vector(4, new double[] { 15.0, 5 }));
 
         BruteForceSearch brute = new BruteForceSearch(store);
-        double[] query = { 1.5, 2.5 };
+        double[] query = { 13, 5 };
 
         Vector res = brute.nearest(query);
         System.out.println("Nearest Vector Id Using BruteForce : " + res.id);
@@ -24,7 +24,18 @@ public class Main {
         for (Vector v : topK) {
             System.out.println("ID: " + v.id);
         }
-        System.out.println("Time Taken : " + (end - start) + " ns");
+        System.out.println("Time Taken for Brute Top K: " + (end - start) + " ns");
 
+        KDTree tree = new KDTree(store.getAll());
+        KDTreeSearch kdSearch = new KDTreeSearch();
+
+        long kdStart = System.nanoTime();
+        Vector kdResult = kdSearch.nearest(tree.getRoot(), query);
+        long kdEnd = System.nanoTime();
+        System.out.println("Nearest Vector Id Using KDTree : " + kdResult.id);
+        System.out.println("Time Taken for KDTree: " + (kdEnd - kdStart) + " ns");
+
+        double speedup = (double) (end - start) / (kdEnd - kdStart);
+        System.out.println("Speedup: " + speedup + "x");
     }
 }
